@@ -1,0 +1,88 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/core-ajax/core-ajax.html">
+<link rel="import"
+  href="bower_components/core-toolbar/core-toolbar.html">
+<link rel="import"
+  href="bower_components/core-header-panel/core-header-panel.html">
+<link rel="import"
+  href="bower_components/core-icons/core-icons.html">
+<link rel="import"
+  href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import"
+  href="bower_components/paper-tabs/paper-tabs.html">
+<!--
+Element providing solution to no problem in particular.
+
+##### Example
+
+    <facebook-events></facebook-events>
+
+@element facebook-events
+@blurb Element providing solution to no problem in particular.
+@status alpha
+@homepage http://rarato.github.io/facebook-events
+-->
+
+<polymer-element name="facebook-events" attributes="fields token">
+  <template>
+	 	<link rel="stylesheet" href="facebook-events.css">
+		<div>
+ 	 	<core-header-panel mode ="waterfall">
+    		<core-toolbar id="navheader">
+				<paper-icon-button id="navicon"
+				src='actualizar.png' on-click="{{go}}"></paper-icon-button>
+      			<p id='cartel'>Facebook Events</p>
+      			<core-icon id='logo'
+				src='logo.png' ></core-icon>
+
+			</core-toolbar>
+			<div class="content"><template is="auto-binding" id="template" repeat="{{ contenido }}">
+				 <p id='eventos'>{{message}}</p>
+				 </template></div>
+
+		  </core-header-panel>
+		 </div>
+    <core-ajax id="request"
+				   method="GET"
+				   url="https://graph.facebook.com/me?"
+				   params='{"fields":"{{fields}}","access_token":"{{token}}"}'
+				   handleAs="json"
+				   on-core-response="{{response}}"
+				   ></core-ajax>
+
+  </template>
+  <script>
+    Polymer('facebook-events',{
+  	  fields:'',
+	  token:'',
+	  mensaje:'',
+      ready: function () {
+						var script = document.createElement('script');
+						script.type = "text/javascript";
+						script.text = "	(function(d, s, id) { \
+						var js, fjs = d.getElementsByTagName(s)[0];\
+							if (d.getElementById(id)) return;\
+							js = d.createElement(s); js.id = id;\
+							js.src = '//connect.facebook.net/en_US/sdk.js';\
+							fjs.parentNode.insertBefore(js, fjs);\
+						  }(document, 'script', 'facebook-jssdk'));\
+						"
+						document.body.appendChild(script);
+      },
+
+		go:function(){
+
+			this.$.request.go();
+		},
+
+		response: function(event,detail,sender){
+			this.events = sender.response;
+			var tam=sender.response.statuses.data;
+			this.$.template.contenido=tam;
+			this.mensaje = tam;
+		},
+
+    });
+  </script>
+</polymer-element>
+<facebook-muro></facebook-muro>

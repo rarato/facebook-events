@@ -1,0 +1,22 @@
+{
+  "name": "facebook-muro",
+  "version": "0.0.0",
+  "keywords": [
+    "seed",
+    "polymer",
+    "web-components"
+  ],
+  "main": "facebook-muro.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5.4",
+    "core-ajax": "Polymer/core-ajax#~0.5.5",
+    "core-toolbar": "Polymer/core-toolbar#~0.5.5",
+    "core-header-panel": "Polymer/core-header-panel#~0.5.5",
+    "core-icons": "Polymer/core-icons#~0.5.5",
+    "paper-icon-button": "Polymer/paper-icon-button#~0.5.5",
+    "paper-tabs": "Polymer/paper-tabs#~0.5.5"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^2.2.3"
+  }
+}
