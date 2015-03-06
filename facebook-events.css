@@ -66,6 +66,16 @@ color:white;
       transition: height 0.2s;
     }
 
+#imagenes{
+	position: relative;
+	margin: 10px;
+	border: 2px solid white;
+	box-shadow: 0px 0px 15px black;
+	
+}
+#imagenes[src=""] {
+    display: none;
+}
 
     .content {
 	position: absolute;

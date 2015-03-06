@@ -1,15 +1,10 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/core-ajax/core-ajax.html">
-<link rel="import"
-  href="bower_components/core-toolbar/core-toolbar.html">
-<link rel="import"
-  href="bower_components/core-header-panel/core-header-panel.html">
-<link rel="import"
-  href="bower_components/core-icons/core-icons.html">
-<link rel="import"
-  href="bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import"
-  href="bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="bower_components/core-icons/core-icons.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
 <!--
 Element providing solution to no problem in particular.
 
@@ -30,14 +25,20 @@ Element providing solution to no problem in particular.
  	 	<core-header-panel mode ="waterfall">
     		<core-toolbar id="navheader">
 				<paper-icon-button id="navicon"
-				src='actualizar.png' on-click="{{go}}"></paper-icon-button>
+				src='actualizar.png' on-click="{{go}}">
+				</paper-icon-button>
       			<p id='cartel'>Facebook Events</p>
       			<core-icon id='logo'
-				src='logo.png' ></core-icon>
+				src='logo2.png' ></core-icon>
 
 			</core-toolbar>
 			<div class="content"><template is="auto-binding" id="template" repeat="{{ contenido }}">
-				 <p id='eventos'>{{message}}</p>
+				 <section id='eventos'><p>{{message}}</p>
+				 <div align=center>
+				 <a onclick="window.open('{{link}}','nuevaVentana','width=750, height=750')"> <img src={{picture}} /></a></div>
+<!--				 <img id='imagenes' src={{picture}}>-->
+				 </section>
+				 
 				 </template></div>
 
 		  </core-header-panel>
@@ -68,6 +69,7 @@ Element providing solution to no problem in particular.
 						  }(document, 'script', 'facebook-jssdk'));\
 						"
 						document.body.appendChild(script);
+		  				this.$.request.go();
       },
 
 		go:function(){
@@ -77,9 +79,11 @@ Element providing solution to no problem in particular.
 
 		response: function(event,detail,sender){
 			this.events = sender.response;
-			var tam=sender.response.statuses.data;
+
+			var tam=sender.response.feed.data;
 			this.$.template.contenido=tam;
-			this.mensaje = tam;
+			console.log(sender.response.feed.data);
+
 		},
 
     });
